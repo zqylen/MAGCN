@@ -1,0 +1,40 @@
+work_dir: ./work_dir/train/pems03
+model_saved_name: ./runs/pems03
+
+gen_config_args:
+  num_of_weeks: 0
+  num_of_days: 0
+  num_of_hours: 1
+  num_for_predict: 12
+  points_per_hour: 12
+
+num_of_vertices: 358
+
+# feeder
+feeder: feeders.feeder.Feeder
+train_feeder_args:
+  data_path: ./data/PEMS03/train_data.npy
+  label_path: ./data/PEMS03/train_label.pkl
+  debug: False
+test_feeder_args:
+  data_path: ./data/PEMS03/val_data.npy
+  label_path: ./data/PEMS03/val_label.pkl
+
+# model
+model: model.magcn.Model
+model_args:
+  in_channels: 1
+  drop_out: 0.2
+  adj_filename: ./data/PEMS03/PEMS03.csv
+  id_filename: ./data/PEMS03/PEMS03.txt
+# training
+device: [7]
+batch_size: 32
+test_batch_size: 64
+
+#optim
+base_lr: 0.001
+step: [5]
+num_epoch: 10
+weight_decay: 0.0001
+
